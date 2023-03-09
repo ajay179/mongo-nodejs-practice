@@ -1,0 +1,14 @@
+<h1>This is home page</h1>
+
+<%- include('header') %>
+<% useList.map((item,key)=>{ %>
+
+<p><%= item.username %></p>
+<p><%= item.email %></p>
+<p><%= item.mobile %></p>
+<p><%= item.address %></p>
+
+<p><a href="/delete-user/<%= item.id %>">delete user</a></p>
+<hr>
+<% }) %>
+

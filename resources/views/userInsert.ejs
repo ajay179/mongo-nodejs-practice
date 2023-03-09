@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <title>Insert form</title>
+</head>
+<body>
+    
+    <% if (messages.error) {%>
+        <span style="color:red;"><%= messages.error %></span>
+    <% } %>
+    <% if (messages.success) {%>
+        <span style="color:rgb(0, 255, 0);"><%= messages.success %></span>
+    <% } %>
+    <form action="/user-update" method="post">
+        <input type="text" name="username" id="username" placeholder="username"><br><br>
+        <input type="email" name="email" id="email" placeholder="email"><br><br>
+        <input type="text" name="mobile" id="mobile" placeholder="mobile"><br><br>
+        <input type="text" name="address" id="address" placeholder="adderess"><br><br>
+        <button type="submit">submit form</button>
+    </form>
+
+    <a href="/">Home</a>
+</body>
+</html>
