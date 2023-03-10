@@ -5,6 +5,7 @@
     <title>Insert form</title>
 </head>
 <body>
+    <%- include('header') %>
     
     <% if (messages.error) {%>
         <span style="color:red;"><%= messages.error %></span>
@@ -20,6 +21,6 @@
         <button type="submit">submit form</button>
     </form>
 
-    <a href="/">Home</a>
+    
 </body>
 </html>

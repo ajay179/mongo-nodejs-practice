@@ -3,9 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>AJAX Datatable Example</title>
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+  
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.4/datatables.min.css"/>
   <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.4/datatables.min.js"></script>
+ 
 </head>
 <body>
     <header>
@@ -14,21 +17,32 @@
   <table id="datatable">
     <thead>
       <tr>
-        <th>Column 1</th>
-        <th>Column 2</th>
-        <th>Column 3</th>
+        <th>Sr No.</th>
+        <th>User Name</th>
+        <th>Email</th>
+        <th>Mobile no</th>
       </tr>
     </thead>
   </table>
 
+
   <script type="text/javascript">
     $(document).ready(function() {
       $('#datatable').DataTable({
-        ajax: '/user-datatable',
-        columns: [
-          { data: 'username' },
-          { data: 'email' },
-          { data: 'mobile' }
+        "paging": true,
+        "pageLength": 10,
+        "processing": true,
+        "serverSide": false,
+        "ajax": {    
+          "data":"json",
+                "type": "POST",
+                "url": "/user-datatable",
+            },
+        "columns": [
+          { "data": "DT_RowIndex" },
+          { "data": "username" },
+          { "data": "email" },
+          { "data": "mobile" }
         ]
       });
     });

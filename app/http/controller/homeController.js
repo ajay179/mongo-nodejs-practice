@@ -17,9 +17,28 @@ function homeController() {
         },
 
         async getUserDataTable(req,res){
-           const data = await UserModel.find({})
+           const users = await UserModel.find({})
             
-            res.send(data);
+            // res.send(data);
+
+            // var data = [];
+
+            // users.forEach(function(user, index) {
+            //     data.push({
+            //         DT_RowIndex: index + 1, // Add DT_RowIndex property with row index
+            //         username: user.username,
+            //         email: user.email,
+            //         mobile: user.mobile
+            //     });
+            // });
+
+            var data = users.map((user, index)=>{
+                return {...user.toObject(),DT_RowIndex: index + 1}
+            });
+
+            res.json({
+                "data": data
+              });
             
         },
 

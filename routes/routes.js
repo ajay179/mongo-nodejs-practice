@@ -16,7 +16,7 @@ function routesList(app) {
     app.post('/user-update',homeController().updateForm)
     app.get('/delete-user/:id',homeController().deleteUser)
     app.get('/user-listing', homeController().userListingPage)
-    // app.get('/user-datatable', homeController().getUserDataTable)
+    app.post('/user-datatable', homeController().getUserDataTable)
     
     // user auth route
     app.post("/user/generateToken", authController().userLogin);
