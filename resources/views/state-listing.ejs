@@ -6,16 +6,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.4/datatables.min.css"/>
+  <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.4/datatables.min.js"></script>
+ 
 </head>
 <body>
     <header>
         <%- include('header') %>
     </header>
-    <section>
-        <div class="container">
-            <%= stateList %>
-        </div>
-    </section>
+    <table id="datatable">
+        <thead>
+          <tr>
+            <th>Sr No.</th>
+            <th>State Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+    </table>
+    <script type="text/javascript">
+        $(document).ready(function() {
+          $('#datatable').DataTable({
+            "serverSide": true,
+            "processing": true, 
+            "ajax": {
+                "url": "/state-datatable",
+                "type": "POST"
+            },
+            "columns": [
+              { "data": "DT_RowIndex" },
+              { "data": "state_name" },
+              { "data": "actionBtn" },
+            ],
+            "pageLength": 10,
+          });
+        });
+    </script>
 </body>
 </html>
 

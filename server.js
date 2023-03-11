@@ -23,7 +23,6 @@ mongoose.connect(url).then(() =>{
     console.log('Database is not connected');
  });
 
-
 // set middleware for get json request && form data request
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -28,6 +28,8 @@ function routesList(app) {
     app.get('/add-state-form',stateController().funViewState)
     app.post('/upload-state-excel-and-save-data', upload.single('file'),stateController().importStateData)
     app.get('/state-listing',stateController().funViewStateList)
+    app.post('/state-datatable',stateController().stateDatatable)
+    
 }
 
 module.exports = routesList
