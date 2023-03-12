@@ -1,11 +1,16 @@
 const xlsx = require('xlsx');
+const ExcelJS = require('exceljs');
 const StateModel = require('../../models/StateModel');
 
 function stateController(){
     return{
+
+      // function to view state add pages using excel sheet
         funViewState(req,res){
             res.render('state-insert-form');
         },
+      
+      // Import state data into database from excel sheet  
         importStateData(req,res){
             
             const file = req.file.path;
@@ -25,13 +30,16 @@ function stateController(){
             
             res.send('File uploaded successfully!');
         },
+      
+      // Function to state listing page view 
         async funViewStateList(req,res){
           // const stateList = await StateModel.find();
           // res.render('state-listing',{stateList:stateList});
 
           res.render('state-listing');
         },
-
+      
+      // Function to get state data for state datatable 
         async stateDatatable(req,res){
           // const stateList = await StateModel.find();
           
@@ -86,9 +94,63 @@ function stateController(){
 
 
 
-        }
+        },
 
+      // Function to export state data using excel js file user normal method
+        async exportStateListing(req,res){
+          const workbook = new ExcelJS.Workbook();
+          const worksheet = workbook.addWorksheet('My Sheet');
 
+          // Add header row to the worksheet
+          worksheet.columns = [
+            { header: 'ID', key: 'id', width: 30 },
+            { header: 'State Name', key: 'state_name', width: 40 },
+            // { header: 'Value', key: 'value', width: 15 }
+          ];
+
+          const stateListing = await StateModel.find();
+
+          // Add data rows to the worksheet
+          stateListing.forEach((dataRow) => {
+            worksheet.addRow(dataRow);
+          });
+
+          // Save the workbook to a file
+          workbook.xlsx.writeFile('myFile.xlsx')
+          .then(function() {
+            console.log('Excel file created!');
+          });
+          res.send('excel created')
+        },
+
+        //This fucntion also use to handle large amount of data
+         // Function to export state data using xlsx file
+         async exportStateListingUseXLSX(req,res){
+            
+          const stateListing = await StateModel.find().lean();
+         
+          // const data = [
+          //     { id: 1, name: 'John Doe', email: 'john@example.com' },
+          //     { id: 2, name: 'Jane Doe', email: 'jane@example.com' },
+          //     { id: 3, name: 'Bob Smith', email: 'bob@example.com' }
+          //   ];
+          // Convert data to worksheet
+          const worksheet = xlsx.utils.json_to_sheet(stateListing);
+          
+          // Add header row to worksheet
+          const header = ["id", "State Name"]; // replace with your own column names
+          xlsx.utils.sheet_add_aoa(worksheet, [header], { origin: "A1" });
+          
+
+          // Create a new workbook and add the worksheet
+          const workbook = xlsx.utils.book_new();
+          xlsx.utils.book_append_sheet(workbook, worksheet, 'My Sheet');
+
+          // Write the workbook to a file
+          xlsx.writeFile(workbook, 'uploads/user-excel/myFile.xlsx');
+
+          res.send('excel created')
+        },
     }
 }
 

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <title>City Insert form</title>
+    
+    <!-- Load jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Load Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    
+    <!-- Load Select2 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+      
+</head>
+<body>
+    <%- include('header') %>
+    
+    <% if (messages.error) {%>
+        <span style="color:red;"><%= messages.error %></span>
+    <% } %>
+    <% if (messages.success) {%>
+        <span style="color:rgb(0, 255, 0);"><%= messages.success %></span>
+    <% } %>
+    <h4>Add City Form</h4>
+    <form action="/user-update" method="post">
+        <select  name="state_id" id="state_id">
+            <% stateList.forEach((state)=>{%>
+            <option value="<%= state._id %>"><%= state.state_name %></option>
+            <% }); %>
+        </select><br><br>
+        <input type="text" name="city_name" id="city_name" placeholder="City Name"><br><br>
+        <button type="submit">submit form</button>
+    </form>
+
+<!-- <script>
+  $(document).ready(function() {
+    $('#state_id').on('input', function() {
+      // Get the user input from the select field
+      var userInput = $(this).val();
+
+      // Make an AJAX request to fetch the matching records
+      $.ajax({
+        url: '/get-statlist-for-add-city',
+        method: 'GET',
+        data: { search: userInput },
+        success: function(data) {
+          // Clear the select options
+          $('#state_id').empty();
+
+          // Add the new options to the select
+          data.forEach(function(state) {
+            var option = $('<option>', {
+              value: state.id,
+              text: state.name
+            });
+            $('#state_id').append(option);
+          });
+        },
+        error: function() {
+          console.log('Error fetching states');
+        }
+      });
+    });
+  });
+</script> -->
+
+<!-- <script>
+    $(document).ready(function() {
+  $('#state_id').select2({
+    ajax: {
+      url: '/get-statlist-for-add-city',
+      dataType: 'json',
+      delay: 20,
+      data: function(params) {
+        var page = params.page || 1;
+        var pageSize = 10;
+        return {
+          q: params.term,
+          page: page,
+          pageSize: pageSize
+        };
+      },
+      processResults: function(data, params) {
+        var page = params.page || 1;
+        var pageSize = params.pageSize || 10;
+        var results = data.slice((page - 1) * pageSize, page * pageSize);
+        return {
+          results: results,
+          pagination: {
+            more: (page * pageSize) < data.length
+          }
+        };
+      },
+      cache: true
+    },
+    placeholder: 'Select a state',
+    minimumInputLength: 1,
+    escapeMarkup: function(markup) {
+      return markup;
+    },
+    templateResult: function(state) {
+      return state.text;
+    },
+    templateSelection: function(state) {
+      return state.text;
+    }
+  });
+});
+
+</script> -->
+
+</body>
+</html>

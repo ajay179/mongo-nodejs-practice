@@ -9,12 +9,28 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.4/datatables.min.css"/>
   <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.4/datatables.min.js"></script>
- 
+  <style>
+    a{
+      text-decoration: none;
+    font-family: sans-serif;
+    color: black;
+    }
+  </style>
 </head>
 <body>
     <header>
         <%- include('header') %>
     </header>
+    
+    <div style="display: flex;justify-content: space-evenly;margin-bottom: 20px;border: 1px solid gray;padding: 16px 0px 15px 0px;background: #ede0e0;">
+      <a href="/export-state-data-use-excelJS"> Excel to export using excelJs library </a>
+
+
+      <a href="/export-state-data-use-xlsx"> Excel to export using XLSX library </a>      
+
+      <a href="/pdf-generate-user-data"> pdf download of user data </a>
+    </div>
+
     <table id="datatable">
         <thead>
           <tr>
